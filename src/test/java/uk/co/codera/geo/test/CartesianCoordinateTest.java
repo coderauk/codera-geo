@@ -4,14 +4,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static uk.co.codera.geo.CartesianCoordinate.aCartesianCoordinate;
+import static uk.co.codera.geo.test.CartesianCoordinates.aValidCartesianCoordinate;
+import static uk.co.codera.geo.test.CartesianCoordinates.lunchCoordinate;
+import static uk.co.codera.geo.test.CartesianCoordinates.workCoordinate;
 
 import java.math.BigDecimal;
 
 import org.junit.Test;
 
 import uk.co.codera.geo.CartesianCoordinate;
-import uk.co.codera.geo.CartesianCoordinate.Builder;
 import uk.co.codera.geo.Distance;
 
 public class CartesianCoordinateTest {
@@ -37,21 +38,9 @@ public class CartesianCoordinateTest {
 		assertThat(straightLineDistanceBetween(workCoordinate(), lunchCoordinate()),
 				equalTo(straightLineDistanceBetween(lunchCoordinate(), workCoordinate())));
 	}
-
-	private Builder lunchCoordinate() {
-		return aCartesianCoordinate().eastings(430369).northings(432592);
-	}
-
-	private Builder workCoordinate() {
-		return aCartesianCoordinate().eastings(429919).northings(432366);
-	}
-
+	
 	private Distance straightLineDistanceBetween(CartesianCoordinate.Builder pointA,
 			CartesianCoordinate.Builder pointB) {
 		return pointA.build().straightLineDistanceBetween(pointB.build());
-	}
-
-	private CartesianCoordinate.Builder aValidCartesianCoordinate() {
-		return workCoordinate();
 	}
 }

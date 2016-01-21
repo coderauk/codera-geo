@@ -2,6 +2,10 @@ package uk.co.codera.geo;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Distance {
 
 	private final BigDecimal distance;
@@ -20,10 +24,7 @@ public class Distance {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((distance == null) ? 0 : distance.hashCode());
-		return result;
+		return new HashCodeBuilder().append(this.distance).toHashCode();
 	}
 
 	@Override
@@ -39,5 +40,10 @@ public class Distance {
 		}
 		Distance other = (Distance) obj;
 		return this.distance.compareTo(other.distance) == 0;
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

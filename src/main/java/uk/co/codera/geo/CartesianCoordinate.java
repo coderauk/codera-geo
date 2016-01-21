@@ -3,6 +3,9 @@ package uk.co.codera.geo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class CartesianCoordinate {
 
 	private final int eastings;
@@ -28,6 +31,11 @@ public class CartesianCoordinate {
 	public Distance straightLineDistanceBetween(CartesianCoordinate otherCoordinate) {
 		BigDecimal distance = new BigDecimal(calculateDistanceUsingPythagoras(otherCoordinate));
 		return Distance.of(distance.setScale(0, RoundingMode.HALF_UP));
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	private double calculateDistanceUsingPythagoras(CartesianCoordinate otherCoordinate) {
