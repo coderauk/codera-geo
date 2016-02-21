@@ -2,6 +2,7 @@ package uk.co.codera.geo.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.comparesEqualTo;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static uk.co.codera.geo.test.CartesianCoordinates.aValidCartesianCoordinate;
@@ -10,6 +11,7 @@ import static uk.co.codera.geo.test.CartesianCoordinates.workCoordinate;
 
 import java.math.BigDecimal;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import uk.co.codera.geo.CartesianCoordinate;
@@ -37,6 +39,13 @@ public class CartesianCoordinateTest {
 	public void shouldCalculateSameDistanceWithPointsReversed() {
 		assertThat(straightLineDistanceBetween(workCoordinate(), lunchCoordinate()),
 				equalTo(straightLineDistanceBetween(lunchCoordinate(), workCoordinate())));
+	}
+	
+	@Test
+	public void shouldReportCoordinatesInToString() {
+	    String toString = aValidCartesianCoordinate().northings(213421).eastings(763221).build().toString();
+	    assertThat(toString, containsString("northings=213421"));
+	    assertThat(toString, containsString("eastings=763221"));
 	}
 	
 	private Distance straightLineDistanceBetween(CartesianCoordinate.Builder pointA,

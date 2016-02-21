@@ -3,7 +3,6 @@ package uk.co.codera.geo;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -47,7 +46,7 @@ public class DistanceTest {
     
     @Test
     public void shouldNotEqualNull() {
-        assertThat(Distance.of("34.4"), not(equalTo(nullValue())));
+        assertThat(Distance.of("34.4"), not(equalTo(null)));
     }
     
     @Test
