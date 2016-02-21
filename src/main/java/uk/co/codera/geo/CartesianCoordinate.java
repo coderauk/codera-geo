@@ -8,66 +8,66 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class CartesianCoordinate {
 
-	private final int eastings;
-	private final int northings;
+    private final int eastings;
+    private final int northings;
 
-	private CartesianCoordinate(Builder builder) {
-		this.eastings = builder.eastings;
-		this.northings = builder.northings;
-	}
+    private CartesianCoordinate(Builder builder) {
+        this.eastings = builder.eastings;
+        this.northings = builder.northings;
+    }
 
-	public static Builder aCartesianCoordinate() {
-		return new Builder();
-	}
+    public static Builder aCartesianCoordinate() {
+        return new Builder();
+    }
 
-	public int getEastings() {
-		return this.eastings;
-	}
+    public int getEastings() {
+        return this.eastings;
+    }
 
-	public int getNorthings() {
-		return this.northings;
-	}
+    public int getNorthings() {
+        return this.northings;
+    }
 
-	public Distance straightLineDistanceBetween(CartesianCoordinate otherCoordinate) {
-		BigDecimal distance = new BigDecimal(calculateDistanceUsingPythagoras(otherCoordinate));
-		return Distance.of(distance.setScale(0, RoundingMode.HALF_UP));
-	}
-	
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-	}
+    public Distance straightLineDistanceBetween(CartesianCoordinate otherCoordinate) {
+        BigDecimal distance = BigDecimal.valueOf(calculateDistanceUsingPythagoras(otherCoordinate));
+        return Distance.of(distance.setScale(0, RoundingMode.HALF_UP));
+    }
 
-	private double calculateDistanceUsingPythagoras(CartesianCoordinate otherCoordinate) {
-		return Math.sqrt(calculateLengthAndSquare(this.eastings, otherCoordinate.eastings)
-				+ calculateLengthAndSquare(this.northings, otherCoordinate.northings));
-	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
-	private int calculateLengthAndSquare(int a, int b) {
-		return (b - a) * (b - a);
-	}
+    private double calculateDistanceUsingPythagoras(CartesianCoordinate otherCoordinate) {
+        return Math.sqrt((double) calculateLengthAndSquare(this.eastings, otherCoordinate.eastings)
+                + (double) calculateLengthAndSquare(this.northings, otherCoordinate.northings));
+    }
 
-	public static class Builder {
+    private int calculateLengthAndSquare(int a, int b) {
+        return (b - a) * (b - a);
+    }
 
-		private int eastings;
-		private int northings;
+    public static class Builder {
 
-		private Builder() {
-			super();
-		}
+        private int eastings;
+        private int northings;
 
-		public Builder eastings(int eastings) {
-			this.eastings = eastings;
-			return this;
-		}
+        private Builder() {
+            super();
+        }
 
-		public Builder northings(int northings) {
-			this.northings = northings;
-			return this;
-		}
+        public Builder eastings(int eastings) {
+            this.eastings = eastings;
+            return this;
+        }
 
-		public CartesianCoordinate build() {
-			return new CartesianCoordinate(this);
-		}
-	}
+        public Builder northings(int northings) {
+            this.northings = northings;
+            return this;
+        }
+
+        public CartesianCoordinate build() {
+            return new CartesianCoordinate(this);
+        }
+    }
 }
