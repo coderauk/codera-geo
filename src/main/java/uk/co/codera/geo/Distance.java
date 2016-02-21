@@ -17,6 +17,10 @@ public class Distance {
     public static Distance of(BigDecimal distance) {
         return new Distance(distance);
     }
+    
+    public static Distance of(String distance) {
+        return of(new BigDecimal(distance));
+    }
 
     public BigDecimal getDistance() {
         return this.distance;
@@ -24,7 +28,7 @@ public class Distance {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.distance).toHashCode();
+        return new HashCodeBuilder().append(this.distance.stripTrailingZeros()).toHashCode();
     }
 
     @Override
